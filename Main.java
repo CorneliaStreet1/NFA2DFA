@@ -8,12 +8,15 @@ public class Main {
         int a=3,b=2,c=1;int q0=1;
         ArrayList<Integer> F=new ArrayList<>();
         F.add(4);
+        ArrayList<String> Q=new ArrayList<>();
+        Q.add("q0");Q.add("q1");Q.add("q2");Q.add("q3");
+
 
         int[][] dfa=new int[(int)Math.pow(2,a)-1][b];
 
         //测试用nfa
-        //int[][] nfa={ {1,3},{4,4},{0,0} };
-        int[][] nfa={ {2,0},{2,6},{0,0} };
+        int[][] nfa={ {1,3},{4,4},{0,0} };
+        //       int[][] nfa={ {2,0},{2,6},{0,0} };
 
         NFA2DFA(nfa,dfa,a,b);
 
@@ -24,13 +27,15 @@ public class Main {
         int[][] newDfa=new int[mark.size()][b];
         setNewDFA(dfa,newDfa,mark,b);
 
-        ArrayList<Integer> end=new ArrayList<>();
+        ArrayList<Integer> end=new ArrayList<Integer>();
         setFinalStatus(mark,F,end);
+
+        ArrayList<StringBuilder> name=new ArrayList<>();
+        nameTotalStatus(mark,Q,name);
 
         c++;///debug用
     }
 
-    //二维数组形式的NFA转换为二维数组形式的DFA
     public static void NFA2DFA(int[][] nfa,int[][] dfa,int a,int b ) {
         int i,j,k,temp;
         for( i=0;i<(int)Math.pow(2,a)-1;i++){//dfa的第i行
@@ -45,7 +50,6 @@ public class Main {
         }
     }
 
-    //用mark数组标记实际上可到达的状态集合
     public static void dedup(int index,int b,int[][] dfa,ArrayList<Integer> mark) {
         for(int i=0;i<b;i++){
             if( !mark.contains(dfa[index][i]-1) ){
@@ -56,7 +60,6 @@ public class Main {
         }
     }
 
-    //用新数组存储DFA,去掉了不能到达的状态
     public static void setNewDFA(int[][] dfa,int[][] newDfa,ArrayList<Integer> mark,int b) {
         Collections.sort(mark);
         int i=0;
@@ -73,16 +76,39 @@ public class Main {
         }
     }
 
-    //标记DFA中 每一个终态的位置
     public static void setFinalStatus(ArrayList<Integer> mark,ArrayList<Integer> F,ArrayList<Integer> end) {
         int i,j;
         for(i=0;i<mark.size();i++){
+            mark.set(i,mark.get(i)+1);
             for(j=0;j<F.size();j++){
-                if(   ((mark.get(i)+1) | F.get(j) ) == (mark.get(i)+1)  ){
+                if(   (mark.get(i) | F.get(j) ) == mark.get(i)  ){
                     end.add(i);
                     break;
                 }
             }
+        }
+    }
+
+    public static void nameTotalStatus(ArrayList<Integer> mark,ArrayList<String>Q,ArrayList<StringBuilder> name) {
+        int i,j,temp;
+        for(i=0;i<mark.size();i++){
+            StringBuilder aname=new StringBuilder();
+            for(j=0,temp=mark.get(i);j<Q.size();j++){
+                if(temp%2==1){
+                    if(aname.length()==0){
+                        aname.append("["+Q.get(j));
+                    }else{
+                        aname.append(","+Q.get(j));
+                    }
+                }
+                temp=temp>>1;
+            }
+            if(aname.length()!=0) {
+                aname.append("]");
+            }else{
+                aname.append("空集");
+            }
+            name.add(aname);
         }
     }
 }
