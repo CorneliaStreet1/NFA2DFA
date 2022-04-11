@@ -33,6 +33,10 @@ public class Main {
         ArrayList<StringBuilder> name=new ArrayList<>();
         nameTotalStatus(mark,Q,name);
 
+        //输出函数
+        //output(int [][] newDfa,int rows,int lines,ArrayList<StringBuilder>name,ArrayList<Integer>end,String start);
+
+
         c++;///debug用
     }
 
