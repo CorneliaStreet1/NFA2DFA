@@ -1,23 +1,22 @@
-
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc=new Scanner(System.in);
 
-        int a=3,b=2,c=1;int q0=1;
+        Input input = new Input();
+        input.WelcomeInterface();
+
+        ArrayList<String>Q=input.getStateSet();
+        int a=input.getStateSet().size(),b=input.getInputSet().size();
+        int q0=(int)Math.pow(2,input.getStateSet().indexOf(input.getUniqueInitState()));
+
         ArrayList<Integer> F=new ArrayList<>();
-        F.add(4);
-        ArrayList<String> Q=new ArrayList<>();
-        Q.add("q0");Q.add("q1");Q.add("q2");Q.add("q3");
+        transform(F,input);
 
+        int[][] nfa=new int[a][b];
+        setNfa(nfa,input);
 
         int[][] dfa=new int[(int)Math.pow(2,a)-1][b];
-
-        //测试用nfa
-        int[][] nfa={ {1,3},{4,4},{0,0} };
-        //       int[][] nfa={ {2,0},{2,6},{0,0} };
-
         NFA2DFA(nfa,dfa,a,b);
 
         ArrayList<Integer> mark=new ArrayList<>();
@@ -33,10 +32,9 @@ public class Main {
         ArrayList<StringBuilder> name=new ArrayList<>();
         nameTotalStatus(mark,Q,name);
 
-        //输出函数
-        //output(int [][] newDfa,int rows,int lines,ArrayList<StringBuilder>name,ArrayList<Integer>end,String start);
+        output(newDfa,a,b,name,end,q0);
 
-
+        int c=0;
         c++;///debug用
     }
 
@@ -115,4 +113,23 @@ public class Main {
             name.add(aname);
         }
     }
+
+    public static void transform(ArrayList<Integer>F,Input input) {
+        for(int i=0;i<input.getFinalState().size();i++){
+            F.add(     (int) Math.pow(2,input.getStateSet().indexOf( input.getFinalState().get(i) )) );
+        }
+    }
+
+    public static void setNfa(int[][]nfa,Input input){
+        for(int i=0;i<input.getFunctions().size();i++){
+            nfa[input.getStateSet().indexOf( input.getFunctions().get(i).getStartState())]
+                    [input.getInputSet().indexOf(input.getFunctions().get(i).getInput())]+=
+                    (int)Math.pow(2, input.getStateSet().indexOf( input.getFunctions().get(i).getEndState()));
+        }
+    }
+
+    public static void output(int[][] newDfa,int rows,int lines,ArrayList<StringBuilder>name,ArrayList<Integer>end,int start) {
+
+    }
+
 }

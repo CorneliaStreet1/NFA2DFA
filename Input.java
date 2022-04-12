@@ -1,10 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
 public class Input {
-    private class StateTransitionFunction{
+    public class StateTransitionFunction{
         private String StartState;
         private String Input;
         private String EndState;
@@ -127,9 +125,5 @@ public class Input {
             }
             Functions.add(new StateTransitionFunction(start, IP, end));
         }
-    }
-    public static void main(String[] args) {
-        Input input = new Input();
-        input.WelcomeInterface();
     }
 }
