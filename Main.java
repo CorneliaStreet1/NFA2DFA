@@ -32,7 +32,7 @@ public class Main {
         ArrayList<StringBuilder> name=new ArrayList<>();
         nameTotalStatus(mark,Q,name);
 
-        output(newDfa,a,b,name,end,q0);
+        output(newDfa,a,b,name,end,mark.indexOf(++q0));
 
         int c=0;
         c++;///debug用
@@ -128,6 +128,7 @@ public class Main {
         }
     }
 
+    //dfa的二维数组形式,dfa的行数,dfa的列数,状态的名称数组,终态下标数组,初始状态下标
     public static void output(int[][] newDfa,int rows,int lines,ArrayList<StringBuilder>name,ArrayList<Integer>end,int start) {
 
     }
