@@ -108,7 +108,7 @@ public class Main {
             if(aname.length()!=0) {
                 aname.append("]");
             }else{
-                aname.append("空集");
+                aname.append(" 空集 ");
             }
             name.add(aname);
         }
@@ -129,7 +129,25 @@ public class Main {
     }
 
     //dfa的二维数组形式,dfa的行数,dfa的列数,状态的名称数组,终态下标数组,初始状态下标
-    public static void output(int[][] newDfa,int rows,int lines,ArrayList<StringBuilder>name,ArrayList<Integer>end,int start) {
+    public static void output(int[][] newDfa,int rows,int lines,
+                              ArrayList<StringBuilder>name,
+                              ArrayList<Integer>end,int start)
+    {
+        System.out.print("\t\t");
+        for(int i=0;i<lines;i++){
+            System.out.print("\t\t"+i);
+        }
+        System.out.print("\n");
+        for(int i=start;i<rows;i++){
+            if(i==start) System.out.print("->");
+            if(end.contains(i)) System.out.print("*");
+            System.out.print("\t");
+            System.out.print(name.get(i)+"\t");
+            for(int j=0;j<lines;j++){
+                System.out.print(name.get(newDfa[i][j])+"\t");
+            }
+            System.out.print("\n");
+        }
 
     }
 
