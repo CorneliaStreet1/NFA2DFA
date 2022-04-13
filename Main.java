@@ -30,9 +30,9 @@ public class Main {
         setFinalStatus(mark,F,end);
 
         ArrayList<StringBuilder> name=new ArrayList<>();
-        nameTotalStatus(mark,Q,name);
+        nameTotalStatus(mark,Q,name,input.getInputSet());
 
-        output(newDfa,a,b,name,end,mark.indexOf(++q0));
+        output(newDfa,a,name,end,mark.indexOf(++q0),input.getInputSet());
 
         int c=0;
         c++;///debug用
@@ -91,8 +91,8 @@ public class Main {
         }
     }
 
-    public static void nameTotalStatus(ArrayList<Integer> mark,ArrayList<String>Q,ArrayList<StringBuilder> name) {
-        int i,j,temp;
+    public static void nameTotalStatus(ArrayList<Integer> mark,ArrayList<String>Q,ArrayList<StringBuilder> name,ArrayList<String>input) {
+        int i,j,temp,max=0;
         for(i=0;i<mark.size();i++){
             StringBuilder aname=new StringBuilder();
             for(j=0,temp=mark.get(i);j<Q.size();j++){
@@ -108,9 +108,26 @@ public class Main {
             if(aname.length()!=0) {
                 aname.append("]");
             }else{
-                aname.append(" 空集 ");
+                aname.append("空集");
             }
             name.add(aname);
+        }
+        for(i=0;i<name.size();i++){
+            if(name.get(i).length()>max)
+                max=name.get(i).length();
+        }
+        for(i=0;i<name.size();i++){
+            for(j=0;j<max-name.get(i).length();j++){
+                name.get(i).append("   ");
+            }
+        }
+        input.add(0,"");
+        for(i=0;i<input.size();i++){
+            StringBuilder sb=new StringBuilder(input.get(i));
+            for(j=0;j<max-input.get(i).length();j++){
+                sb.append(" ");
+            }
+            input.set(i,sb.toString());
         }
     }
 
@@ -129,26 +146,22 @@ public class Main {
     }
 
     //dfa的二维数组形式,dfa的行数,dfa的列数,状态的名称数组,终态下标数组,初始状态下标
-    public static void output(int[][] newDfa,int rows,int lines,
-                              ArrayList<StringBuilder>name,
-                              ArrayList<Integer>end,int start)
+    public static void output(int[][] newDfa,int rows,
+                              ArrayList<StringBuilder>name,ArrayList<Integer>end,int start,ArrayList<String> input)
     {
-        System.out.print("\t\t");
-        for(int i=0;i<lines;i++){
-            System.out.print("\t\t"+i);
+        System.out.print("\t");
+        for(int i=0;i<input.size();i++){
+            System.out.print(input.get(i));
         }
-        System.out.print("\n");
-        for(int i=start;i<rows+1;i++){
-            if(i==start) System.out.print("->");
-            if(end.contains(i)) System.out.print("*");
-            System.out.print("\t");
-            System.out.print(name.get(i)+"\t");
-            for(int j=0;j<lines;j++){
-                System.out.print(name.get(newDfa[i][j])+"\t");
+        System.out.println();
+        for(int i=0;i<rows;i++){
+            if(i==start) System.out.print("->  ");
+            if(end.contains(i)) System.out.print("*   ");
+            System.out.print(name.get(i));
+            for(int j=0;j<input.size()-1;j++){
+                System.out.print(name.get(newDfa[i][j]));
             }
-            System.out.print("\n");
+            System.out.println();
         }
-
     }
-
 }
