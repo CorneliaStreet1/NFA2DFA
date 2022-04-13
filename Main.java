@@ -138,7 +138,7 @@ public class Main {
             System.out.print("\t\t"+i);
         }
         System.out.print("\n");
-        for(int i=start;i<rows;i++){
+        for(int i=start;i<rows+1;i++){
             if(i==start) System.out.print("->");
             if(end.contains(i)) System.out.print("*");
             System.out.print("\t");
