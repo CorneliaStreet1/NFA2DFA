@@ -91,7 +91,8 @@ public class Main {
         }
     }
 
-    public static void nameTotalStatus(ArrayList<Integer> mark,ArrayList<String>Q,ArrayList<StringBuilder> name,ArrayList<String>input) {
+    public static void nameTotalStatus(ArrayList<Integer> mark,ArrayList<String>Q,
+                                       ArrayList<StringBuilder> name,ArrayList<String>input) {
         int i,j,temp,max=0;
         for(i=0;i<mark.size();i++){
             StringBuilder aname=new StringBuilder();
@@ -118,7 +119,7 @@ public class Main {
         }
         for(i=0;i<name.size();i++){
             for(j=0;j<max-name.get(i).length();j++){
-                name.get(i).append("   ");
+                name.get(i).append("  ");
             }
         }
         input.add(0,"");
@@ -145,18 +146,18 @@ public class Main {
         }
     }
 
-    //dfa的二维数组形式,dfa的行数,dfa的列数,状态的名称数组,终态下标数组,初始状态下标
-    public static void output(int[][] newDfa,int rows,
-                              ArrayList<StringBuilder>name,ArrayList<Integer>end,int start,ArrayList<String> input)
+    public static void output(int[][] newDfa,int rows,ArrayList<StringBuilder>name,
+                              ArrayList<Integer>end,int start,ArrayList<String> input)
     {
         System.out.print("\t");
         for(int i=0;i<input.size();i++){
             System.out.print(input.get(i));
         }
         System.out.println();
-        for(int i=0;i<rows;i++){
+        for(int i=0;i<rows+1;i++){
             if(i==start) System.out.print("->  ");
-            if(end.contains(i)) System.out.print("*   ");
+            else if(end.contains(i)) System.out.print("*   ");
+            else System.out.print("    ");
             System.out.print(name.get(i));
             for(int j=0;j<input.size()-1;j++){
                 System.out.print(name.get(newDfa[i][j]));
