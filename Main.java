@@ -155,7 +155,9 @@ public class Main {
         }
         System.out.println();
         for(int i=0;i<rows;i++){
-            if(i==start)
+            if(i==start&&end.contains(i))
+                System.out.print("->* ");
+            else if(i==start)
                 System.out.print("->  ");
             else if(end.contains(i))
                 System.out.print("*   ");
