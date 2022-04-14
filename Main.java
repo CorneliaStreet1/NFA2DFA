@@ -32,7 +32,7 @@ public class Main {
         ArrayList<StringBuilder> name=new ArrayList<>();
         nameTotalStatus(mark,Q,name,input.getInputSet());
 
-        output(newDfa,a,name,end,mark.indexOf(++q0),input.getInputSet());
+        output(newDfa,mark.size(),name,end,mark.indexOf(++q0),input.getInputSet());
 
         int c=0;
         c++;///debug用
@@ -154,10 +154,13 @@ public class Main {
             System.out.print(input.get(i));
         }
         System.out.println();
-        for(int i=0;i<rows+1;i++){
-            if(i==start) System.out.print("->  ");
-            else if(end.contains(i)) System.out.print("*   ");
-            else System.out.print("    ");
+        for(int i=0;i<rows;i++){
+            if(i==start)
+                System.out.print("->  ");
+            else if(end.contains(i))
+                System.out.print("*   ");
+            else
+                System.out.print("    ");
             System.out.print(name.get(i));
             for(int j=0;j<input.size()-1;j++){
                 System.out.print(name.get(newDfa[i][j]));
