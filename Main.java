@@ -34,8 +34,6 @@ public class Main {
 
         output(newDfa,mark.size(),name,end,mark.indexOf(++q0),input.getInputSet());
 
-        int c=0;
-        c++;///debug用
     }
 
     public static void NFA2DFA(int[][] nfa,int[][] dfa,int a,int b ) {
