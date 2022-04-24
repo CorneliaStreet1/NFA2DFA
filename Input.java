@@ -58,7 +58,7 @@ public class Input {
 
     public void WelcomeInterface() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("======欢迎来到下北泽NFA到DFA转换机！=======");
+        System.out.println("======欢迎使用NFA到DFA转换机！=======");
         System.out.println("请输入NFA的状态集(输入exit退出)：");
         while (scanner.hasNext()) {
             String s = scanner.next();
